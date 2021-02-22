@@ -8,37 +8,26 @@ const Td = styled.td`
 `
 
 export default class Coin extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            price: this.props.price
-        }
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick(event){
-
+    handleClick = (event) => {
         event.preventDefault();
-
-        const randomPercentage = 0.995 + Math.random() * .01
-        this.setState(function(oldState){
-        return {
-            price: oldState.price * randomPercentage
-           };
-       });
+        this.props.handleRefresh(this.props.ticker);
     }
 
     render(){
+        const balance = this.props.showBalance ?
+            <Td>{this.props.balance}</Td> : null;
+
         return(
             <tr>
                 <Td>{this.props.name} </Td>
                 <Td>{this.props.ticker} </Td>
-                <Td>${this.state.price} </Td>
+                <Td>${this.props.price} </Td>
                 <Td>
                     <form>
                         <button onClick={this.handleClick}>Refresh</button>
                     </form>
                 </Td>
+                {balance}
             </tr>
         );
     }
@@ -47,6 +36,7 @@ export default class Coin extends Component {
 Coin.propTypes = {
     name: PropTypes.string.isRequired,
     ticker: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired
+    price: PropTypes.number.isRequired,
+    balance: PropTypes.number.isRequired
 }
 

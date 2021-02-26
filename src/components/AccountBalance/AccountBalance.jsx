@@ -10,23 +10,23 @@ const Section = styled.section`
     padding: 1rem;
 `
 
-export default class AccountBalance extends Component {
-    handleShowBalance = (e) => {
-        this.props.handleShowBalance();
+export default function AccountBalance(props) {
+    const handleShowBalance = (e) => {
+        props.handleShowBalance();
     }
-    render() {
-        const buttonText = (this.props.showBalance)? "Hide Balance" : "Show Balance";
-        return (
-            <> {this.props.showBalance ? 
-                    <Section> 
-                       Balance: ${this.props.amount}   
-                    </Section>
-                    : null}
-                <button onClick={this.handleShowBalance}>{buttonText}</button>
-            </>
-        );
-    }
+    
+    const buttonText = (props.showBalance)? "Hide Balance" : "Show Balance";
+    return (
+        <> {props.showBalance ? 
+                <Section> 
+                   Balance: ${props.amount}   
+                </Section>
+                : null}
+            <button onClick={handleShowBalance}>{buttonText}</button>
+        </>
+    );
 }
+
 
 AccountBalance.propTypes = {
     amount : PropTypes.number.isRequired

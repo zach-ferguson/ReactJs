@@ -10,7 +10,8 @@ const Td = styled.td`
 export default class Coin extends Component {
     handleClick = (event) => {
         event.preventDefault();
-        this.props.handleRefresh(this.props.ticker);
+        console.log(this);
+        this.props.handleRefresh(this.props.key);
     }
 
     render(){
@@ -34,6 +35,7 @@ export default class Coin extends Component {
 }
 
 Coin.propTypes = {
+    key: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     ticker: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,

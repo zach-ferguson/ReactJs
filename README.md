@@ -1,3 +1,8 @@
+Started this app while taking a ReactJs learning course.
+
+Moving forward I want to turn this skeleton into an account based cryptocurrecny paper trading game for friends to compete for the biggest returns.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

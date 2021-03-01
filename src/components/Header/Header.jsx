@@ -1,34 +1,47 @@
-import React, { Component } from 'react'
-import logo from '../../logo.svg';
+import React from 'react'
+import logo from '../../header-image.png'; //credit to https://mixkit.co/@supriyabhonsle/ , thx
 import styled from 'styled-components';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 const AppHeader = styled.header`
-    background-color: #282c34;
+    background-color: rgb(20, 31, 32);
+    border-bottom: 1px solid #454d55;
     min-height: 2vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
+    flex-wrap: wrap;
+    font-size: calc(10px + 1vmin);
     color: white;
-`
-const Title = styled.h1`
-    font-size: 4rem;
-    color: whitesmoke
 `
 const AppLogo = styled.img`
     height: 20vmin;
     pointer-events: none;
+    padding: 15px;
+    border-radius: 25%;
 `
-export default class Header extends Component {
-    render() {
-        return (
-        <AppHeader>
-          <AppLogo src={logo} alt='react logo' className='App-logo'/>
-          <Title>
-            Zach's React App
-          </Title>
-        </AppHeader>
-        )
-    }
+const Title = styled.h1`
+    font-size: calc(10px + 3vmin);
+    color: whitesmoke
+`
+
+export default function Header(){
+
+  return (
+  <Router>
+    <AppHeader>
+      <AppLogo src={logo} alt='react logo' className='App-logo'/>
+      <Title>
+         Root Beer Trade
+      </Title>
+    </AppHeader>
+  </Router>
+  )
+    
 }

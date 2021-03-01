@@ -1,80 +1,80 @@
 import React, {useState, useEffect} from 'react';
-import AccountBalance from './components/AccountBalance/AccountBalance';
-import CoinList from './components/CoinList/CoinList';
-import Header from './components/Header/Header';
+import Home from './components/Home/Home';
+import About from './components/About/About';
+import Info from './components/Info/Info';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import styled from 'styled-components';
 import axios from 'axios';
 
+import 'bootswatch/dist/darkly/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/js/all.js';
+import { render } from '@testing-library/react';
+
 const Div = styled.div`
   text-align: center;
-  background-color:  rgb(34, 34, 83);
+  background-color:   rgb(24, 31, 26);
+`
+const NavbarDiv = styled.section`
+    min-width: 100%;
+`
+const Li = styled.li`
+    padding: 10px;
+    font-size: 20px;
+    font-color:
 `
 
-const CoinCount = 10;
-const CoinsURL = 'https://api.coingecko.com/api/v3/coins/'
-
-function App(props){
-
-  const [balance, setBalance] = useState(10000);
-  const [showBalanceState, setShowBalanceState] = useState(true);
-  const [coinData, setCoinData] = useState([]);
-
-  const componentDidMount = async () => {
-    const response = await axios.get(CoinsURL);
-    const coinIds = response.data.slice(0,CoinCount).map(coin => coin.id);
-    const promises = coinIds.map((id) => axios.get(CoinsURL + id).catch(function(err){console.log(err)}));
-    const coinData  = await Promise.all(promises);
-    const coinDetails = coinData.map(function(response) {
-      const coin = response.data;
-      return{
-        key: coin.id,
-        name: coin.name,
-        ticker: coin.symbol.toUpperCase(),
-        balance: 0,
-        price: parseFloat(Number(coin.market_data.current_price.usd).toFixed(4)),
-      }
-    });
-    setCoinData(coinDetails); //this.setState({coinData: coinDetails});
-    }; 
-
-  useEffect(function(){
-    if(coinData.length === 0){
-      componentDidMount();
-    }
-  });
-
-  
-
-    const handleShowBalance = () => {
-      setShowBalanceState(oldValue => !oldValue);
-    }
-
-    const handleRefresh = async (valueChangeId) => {
-      const response = await axios.get(CoinsURL + valueChangeId).catch(function(err){console.log(err)});
-      const newCoinData = coinData.map( function( values ) {
-        let newValues = {...values};  // copies 'values' so we can change any as needed
-        if (valueChangeId === values.key){
-          newValues.price = parseFloat(Number(response.data.market_data.current_price.usd).toFixed(4))
-        }
-          return newValues;
-       });
-      setCoinData(newCoinData);
-    };
-  
-  
+function App(){
   return (
     <Div className="App">
-      <Header/>
-      <AccountBalance amount={balance}
-                      showBalance={showBalanceState} 
-                      handleShowBalance={handleShowBalance}/>
-      <CoinList coinData={coinData}
-                showBalance={showBalanceState}
-                handleRefresh={handleRefresh}
-                handleShowBalance={handleShowBalance}/>
+      <Router>
+        <NavbarDiv>        
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a className="navbar-brand" href="#">RBTrade</a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className="collapse navbar-collapse" id="navbarColor02">
+              <ul className="navbar-nav mr-auto">
+                <Li>
+                  <Link to="/">Home
+                    <span className="sr-only">(current)</span>
+                  </Link>
+                </Li>
+                <Li className="nav-item">
+                  <Link to="/info">Info</Link>
+                </Li>
+                <Li className="nav-item">
+                  <Link to="/about">About</Link>
+                </Li>
+              </ul>
+              <form className="form-inline my-2 my-lg-0">
+                <input className="form-control mr-sm-2" type="text" placeholder="Search"></input>
+                <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            </div>
+          </nav>
+          <Switch>
+            <Route path="/about">
+              <About/>
+            </Route>
+            <Route path="/info">
+              <Info/>
+            </Route>
+            <Route path="/">
+              <Home/>
+            </Route>
+          </Switch>
+        </NavbarDiv>
+      </Router>
     </Div>
-  );
-  
+);
 }
 
 export default App;
+

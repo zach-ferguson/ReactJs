@@ -26,6 +26,7 @@ export default function CoinList(props){
   
     return (
     <CoinTable className ="table table-hover table-dark">
+      <thead>
       <TableHeadRow>
         <Th>Name</Th>
         <Th>Ticker</Th>
@@ -33,6 +34,7 @@ export default function CoinList(props){
         <Th>Balance</Th> 
         <ButtonTh>Action</ButtonTh>
       </TableHeadRow>
+      </thead>
       <tbody> 
         {
           props.coinData.map(({key,name,ticker,price,balance}) =>

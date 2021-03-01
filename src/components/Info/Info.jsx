@@ -48,8 +48,6 @@ export default function Info() {
     });
     return (
     <div>
-      <h2>Coin Info landing page</h2>
-      
       <Switch>
         <Route path={`${path}/:coinId`}>
           <CoinInfo/>

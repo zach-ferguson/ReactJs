@@ -36,10 +36,6 @@ export default function Coin(props) {
         e.preventDefault();
         props.handleTransaction(false, props.coinId);
     }
-    const handleInfo = (e) => {
-        e.preventDefault();
-        props.handleInfo(props.coinId);
-    }
     const balance = props.showBalance ?
         <Td>{props.balance}</Td> : <Td>-</Td>;
     let { path, url } = useRouteMatch();

@@ -38,7 +38,7 @@ export default function Header(){
     <AppHeader>
       <AppLogo src={logo} alt='react logo' className='App-logo'/>
       <Title>
-         Root Beer Trade
+         Root Beer Swap
       </Title>
     </AppHeader>
   </Router>

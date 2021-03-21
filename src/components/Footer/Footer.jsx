@@ -13,7 +13,6 @@ const AppFooter = styled.footer`
 `
 const GithubLink = styled.a`
     height: 5vmin;
-    pointer-events: none;
 `
 const GithubLogo = styled.img`
     height: 100%;
@@ -24,7 +23,7 @@ export default function footer() {
     return (
         <div>
             <AppFooter>
-                Thanks for using my App! Find me here:
+                Thanks for using my App! Github:
                 <GithubLink href="https://github.com/zach-ferguson" className='Github-link'>
                     <GithubLogo src={githubLogo} alt='github logo' className='Github-logo'/>
                 </GithubLink>

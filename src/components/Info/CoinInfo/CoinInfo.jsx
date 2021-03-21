@@ -22,6 +22,11 @@ const Td = styled.td`
     width: 10vh;
     border: 1px solid;
 `
+const Th = styled.th`
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+`
 const Tr = styled.tr`
  
 `
@@ -37,8 +42,8 @@ export default function CoinInfo() {
    
     const componentDidMount = async function (coinId) {
         const response = await axios.get(CoinsURL + coinId).catch(function(err){console.log(err)});
-        const pulledData = response.map(coin => coin.data);
-        setSingleCoinData(pulledData);
+        //const pulledData = response.map(coin => coin.data);
+        setSingleCoinData(response.data);
     }
  
     useEffect(function(){
@@ -52,24 +57,21 @@ export default function CoinInfo() {
         <div>
             <h1>{singleCoinData.name}</h1>
             <p>{singleCoinData.symbol}</p>
+            <p></p>
             <PriceTable className ="table table-striped table-dark">
                 <thead>
-                <th>Price Action</th>
-                <Tr> 
-                    <Td>1 Hour</Td>
-                    <Td>24 Hour</Td>
-                    <Td>7 Day</Td>
-                    <Td>30 Day</Td>
-                    <Td>1 Year</Td>
-                </Tr>
+                    <Th>Price Action</Th>
+                    <Tr> 
+                        <Td>1 Hour</Td>
+                        <Td>24 Hour</Td>
+                        <Td>7 Day</Td>
+                        <Td>30 Day</Td>
+                        <Td>1 Year</Td>
+                    </Tr>
                 </thead>
                 <tbody>
                     <Tr>
-                        <Td>{singleCoinData.market_data.price_change_percentage_1h_in_currency.usd}%</Td>
-                        <Td>{singleCoinData.market_data.price_change_percentage_24h_in_currency.usd}%</Td>
-                        <Td>{singleCoinData.market_data.price_change_percentage_7d_in_currency.usd}%</Td>
-                        <Td>{singleCoinData.market_data.price_change_percentage_30d_in_currency.usd}%</Td>
-                        <Td>{singleCoinData.market_data.price_change_percentage_1y_in_currency.usd}%</Td>
+                   
                     </Tr>
                 </tbody>
             </PriceTable>

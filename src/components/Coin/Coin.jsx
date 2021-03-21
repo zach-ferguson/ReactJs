@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
@@ -9,7 +9,8 @@ import {
     useParams,
     useRouteMatch,
   } from "react-router-dom";
-import About from '../About/About';
+import BuyPopup from './BuyPopup.jsx'
+
 const Td = styled.td`
     border: 1px solid;
     width: 16vh;
@@ -29,8 +30,13 @@ export default function Coin(props) {
         props.handleRefresh(props.coinId);
     }
     const handleBuy = (e) => {
-        e.preventDefault();
+     /*   e.preventDefault();
         props.handleTransaction(true, props.coinId);
+        */
+    }
+    const buyPopupFunc = (e) => {
+        e.preventDefault();
+        setBuyPopupDisplay(true);
     }
     const handleSell = (e) => {
         e.preventDefault();
@@ -38,8 +44,13 @@ export default function Coin(props) {
     }
     const balance = props.showBalance ?
         <Td>{props.balance}</Td> : <Td>-</Td>;
+    const buyPopupRender = props.buyPopupDisplay? 
+        <BuyPopup/> : null;
     let { path, url } = useRouteMatch();
+    const [buyPopupDisplay, setBuyPopupDisplay] = useState(false);
+
     return(
+      <div>
         <tr>
             <Td>{props.name} </Td>
             <Td>{props.ticker} </Td>
@@ -48,7 +59,7 @@ export default function Coin(props) {
             <TdButtons>
                 <form>
                     <Button onClick={handleRefresh} className="btn btn-outline-info">Refresh</Button>
-                    <Button onClick={handleBuy} className="btn btn-outline-success">Buy</Button>
+                    <Button onClick={buyPopupFunc} className="btn btn-outline-success">Buy</Button>
                     <Button onClick={handleSell} className="btn btn-outline-danger">Sell</Button>
                     <Link to={`${url + 'info/' + props.coinId}`}>
                         <Button className="btn btn-outline-warning">Info</Button>
@@ -56,6 +67,8 @@ export default function Coin(props) {
                 </form>
             </TdButtons>
         </tr>
+        {buyPopupRender}
+      </div>
     );
 }
  

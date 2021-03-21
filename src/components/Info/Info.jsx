@@ -34,6 +34,7 @@ export default function Info() {
             ticker: coin.symbol.toUpperCase(),
             balance: 0,
             price: coin.market_data.current_price.usd,
+            
         }
         });
         setCoinData(newCoinData); 

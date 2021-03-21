@@ -1,7 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Home from './components/Home/Home';
-import About from './components/About/About';
-import Info from './components/Info/Info';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,11 +6,14 @@ import {
   Link
 } from "react-router-dom";
 import styled from 'styled-components';
-import axios from 'axios';
-
 import 'bootswatch/dist/darkly/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/js/all.js';
-import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import Home from './components/Home/Home';
+import About from './components/About/About';
+import Info from './components/Info/Info';
+import Portfolio from './components/Portfolio/Portfolio';
+
 
 const Div = styled.div`
   text-align: center;
@@ -28,7 +28,7 @@ const Li = styled.li`
     font-color:
 `
 
-function App(){
+const App = () => {
   return (
     <Div className="App">
       <Router>
@@ -52,6 +52,12 @@ function App(){
                 <Li className="nav-item">
                   <Link to="/about">About</Link>
                 </Li>
+                <Li className="nav-item">
+                  <Link to="/portfolio">Portfolio</Link>
+                </Li>
+                <Li className="nav-item">
+                  <a>Login/Sign up</a>
+                </Li>
               </ul>
               <form className="form-inline my-2 my-lg-0">
                 <input className="form-control mr-sm-2" type="text" placeholder="Search"></input>
@@ -60,6 +66,9 @@ function App(){
             </div>
           </nav>
           <Switch>
+            <Route path= "/portfolio">
+              <Portfolio />
+            </Route>
             <Route path="/about">
               <About/>
             </Route>
